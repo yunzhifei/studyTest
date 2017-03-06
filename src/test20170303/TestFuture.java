@@ -11,24 +11,29 @@ public class TestFuture {
         Callable<String> call = new Callable<String>() {
             @Override
             public String call() throws Exception {
-                Thread.sleep(100);
+                Thread.sleep(2000);
                 System.out.println("执行");
                 return "线程执行完毕";
             }
         };
+        Future<String> future = null;
         try {
-            for (int i = 0; i < 5; i++) {
-                Future<String> future = executorService.submit(call);
-                String obj = future.get(1000 * 1, TimeUnit.MILLISECONDS);
-                System.out.println(obj);
-                System.out.println("任务按时完成！");
-            }
+
+            future = executorService.submit(call);
+            String obj = future.get(1000 * 1, TimeUnit.MILLISECONDS);
+            System.out.println(obj);
+            System.out.println("任务按时完成！");
+            future.cancel(true);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (TimeoutException e) {
             System.out.println("任务超时了！");
+            if (null != future) {
+                future.cancel(true);
+            }
             executorService.shutdown();
             e.printStackTrace();
         } finally {
