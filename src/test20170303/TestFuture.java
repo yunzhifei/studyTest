@@ -1,5 +1,7 @@
 package test20170303;
 
+import test20170303.entity.CallableImpl;
+
 import java.util.concurrent.*;
 
 /**
@@ -8,14 +10,7 @@ import java.util.concurrent.*;
 public class TestFuture {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(1);
-        Callable<String> call = new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                Thread.sleep(2000);
-                System.out.println("执行");
-                return "线程执行完毕";
-            }
-        };
+        Callable<String> call = new CallableImpl("Test CallableImpl !");
         Future<String> future = null;
         try {
 
@@ -23,8 +18,6 @@ public class TestFuture {
             String obj = future.get(1000 * 1, TimeUnit.MILLISECONDS);
             System.out.println(obj);
             System.out.println("任务按时完成！");
-            future.cancel(true);
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -37,7 +30,7 @@ public class TestFuture {
             executorService.shutdown();
             e.printStackTrace();
         } finally {
-
+            System.out.println("sdfasdfasdf");
         }
 
     }

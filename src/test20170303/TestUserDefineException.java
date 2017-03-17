@@ -5,6 +5,14 @@ package test20170303;
  */
 public class TestUserDefineException {
     public static void main(String[] args) {
-
+        try {
+            throw new MyException();
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
     }
+}
+
+class MyException extends Throwable{
+
 }
