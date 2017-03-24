@@ -9,6 +9,7 @@ public class TestString {
         System.out.println("sou = " + sou.hashCode());
         TestString testString = new TestString();
         testString.change(sou);
+
     }
     public String change(String string){
         System.out.println("string = " + string.hashCode());
