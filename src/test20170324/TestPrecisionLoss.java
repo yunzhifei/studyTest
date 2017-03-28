@@ -13,5 +13,6 @@ public class TestPrecisionLoss {
                 System.out.println("a = " + a);
             }
         }
+
     }
 }
